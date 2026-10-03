@@ -1,1 +1,1 @@
-# mubarak.girhub.io
+# mubarak.github.io
