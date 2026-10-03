@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak — Чайхана · Бишкек</title>
+<meta name="description" content="Чайхана Mubarak — восточная и кыргызская кухня, завтраки и настоящий чай. 9 филиалов в Бишкеке и Чолпон-Ате.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4eee2;
+    --cream-2:#ece3d2;
+    --ink:#1e1a14;
+    --ink-soft:#4a4237;
+    --brass:#a9853c;
+    --brass-soft:#c9ab6b;
+    --line:rgba(30,26,20,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--brass);color:var(--cream)}
+
+  /* ---------- subtle girih pattern backdrop ---------- */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23a9853c' stroke-opacity='.07'%3E%3Cpath d='M48 8l11 29 29 11-29 11-11 29-11-29-29-11 29-11z'/%3E%3Ccircle cx='48' cy='48' r='4'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  main,header,footer{position:relative;z-index:1}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    transition:background .35s,box-shadow .35s;
+  }
+  header.scrolled{background:rgba(244,238,226,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{font-family:'Italiana',serif;font-size:1.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--ink);text-decoration:none;line-height:1}
+  .brand small{display:block;font-family:'Jost';font-size:.55rem;letter-spacing:.6em;text-transform:uppercase;color:var(--brass);margin-top:4px}
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{
+    color:var(--ink-soft);text-decoration:none;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
+    position:relative;padding:4px 0;transition:color .25s;
+  }
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--brass);transition:width .3s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a:hover::after{width:100%}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .lang button{
+    background:transparent;border:0;cursor:pointer;font-family:'Jost';font-size:.72rem;letter-spacing:.15em;
+    padding:7px 14px;color:var(--ink-soft);transition:all .25s;
+  }
+  .lang button.active{background:var(--ink);color:var(--cream)}
+  .burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+  .burger span{display:block;width:24px;height:1.5px;background:var(--ink);transition:.3s}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 60px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;width:100%}
+  .kicker{font-size:.75rem;letter-spacing:.5em;text-transform:uppercase;color:var(--brass);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .kicker::before{content:"";width:44px;height:1px;background:var(--brass)}
+  h1{
+    font-family:'Italiana',serif;font-weight:400;font-size:clamp(3.4rem,8.5vw,7rem);
+    line-height:.98;letter-spacing:.06em;text-transform:uppercase;
+  }
+  h1 .thin{color:var(--brass)}
+  .hero-sub{
+    font-family:'Cormorant Garamond',serif;font-size:clamp(1.15rem,2vw,1.45rem);font-weight:400;
+    color:var(--ink-soft);max-width:440px;margin:30px 0 40px;
+  }
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;
+    font-family:'Jost';font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;
+    padding:16px 34px;border-radius:999px;transition:all .3s;border:1px solid var(--ink);
+  }
+  .btn-dark{background:var(--ink);color:var(--cream)}
+  .btn-dark:hover{background:var(--brass);border-color:var(--brass);transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--cream);transform:translateY(-2px)}
+
+  .hero-visual{position:relative;display:flex;justify-content:center}
+  .arch{
+    width:min(360px,80%);aspect-ratio:3/4.1;border-radius:999px 999px 0 0;position:relative;overflow:hidden;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 0%,rgba(201,171,107,.5),transparent 60%),
+      linear-gradient(180deg,#d9c9a6 0%,#c8b283 38%,#8f7342 100%);
+    box-shadow:0 40px 80px -30px rgba(30,26,20,.45);
+  }
+  .arch::before{ /* woven-lamp glow */
+    content:"";position:absolute;top:12%;left:50%;transform:translateX(-50%);
+    width:130px;height:130px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,238,190,.95),rgba(255,214,130,.35) 55%,transparent 72%);
+    filter:blur(2px);animation:glow 5s ease-in-out infinite;
+  }
+  .arch::after{ /* lamp shade */
+    content:"";position:absolute;top:4%;left:50%;transform:translateX(-50%);
+    width:118px;height:86px;border-radius:50% 50% 46% 46%/62% 62% 38% 38%;
+    background:repeating-linear-gradient(90deg,#a9853c 0 3px,#c9ab6b 3px 6px);
+    opacity:.92;
+  }
+  @keyframes glow{0%,100%{opacity:.85;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.07)}}
+  .arch-floor{position:absolute;bottom:0;left:0;right:0;height:34%;
+    background:
+      radial-gradient(circle at 50% 0%,rgba(30,26,20,.28),transparent 70%),
+      repeating-conic-gradient(from 45deg,rgba(244,238,226,.16) 0 25%,transparent 0 50%) 0 0/44px 44px;
+  }
+  .arch-outline{position:absolute;width:min(360px,80%);aspect-ratio:3/4.1;border-radius:999px 999px 0 0;
+    border:1px solid var(--brass);transform:translate(22px,22px);opacity:.55}
+
+  /* marquee */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0;background:var(--cream-2)}
+  .marquee-track{display:flex;gap:56px;width:max-content;animation:scroll 26s linear infinite}
+  .marquee-track span{font-family:'Italiana',serif;font-size:1.05rem;letter-spacing:.4em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;display:flex;align-items:center;gap:56px}
+  .marquee-track span::after{content:"✦";color:var(--brass);font-size:.8rem}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- sections ---------- */
+  section{padding:110px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:60px;flex-wrap:wrap}
+  h2{font-family:'Italiana',serif;font-weight:400;font-size:clamp(2.2rem,4.5vw,3.4rem);letter-spacing:.12em;text-transform:uppercase;line-height:1.05}
+  .sec-num{font-family:'Cormorant Garamond';font-size:1rem;color:var(--brass);letter-spacing:.3em}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .about-text p{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ink-soft);margin-bottom:22px;max-width:480px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px}
+  .stat{border-top:1px solid var(--line);padding-top:18px}
+  .stat b{font-family:'Italiana',serif;font-weight:400;font-size:2.3rem;display:block;color:var(--ink)}
+  .stat span{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
+  .about-visual{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .mini-arch{border-radius:999px 999px 0 0;aspect-ratio:3/4;position:relative;overflow:hidden}
+  .mini-arch.a1{background:linear-gradient(180deg,#2c261d,#54452c 60%,#a9853c);margin-top:56px}
+  .mini-arch.a2{background:linear-gradient(180deg,#e6dcc6,#cbb684 55%,#8f7342)}
+  .mini-arch::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 22%,rgba(255,232,170,.55),transparent 55%)}
+
+  /* branches */
+  #branches{background:var(--ink);color:var(--cream)}
+  #branches .sec-num{color:var(--brass-soft)}
+  .branch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .branch{
+    border:1px solid rgba(244,238,226,.14);border-radius:4px;padding:32px 30px;
+    display:flex;flex-direction:column;gap:14px;transition:all .35s;position:relative;overflow:hidden;
+  }
+  .branch::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--brass);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+  .branch:hover{background:rgba(244,238,226,.05);transform:translateY(-4px);border-color:rgba(201,171,107,.4)}
+  .branch:hover::before{transform:scaleX(1)}
+  .branch h3{font-family:'Italiana',serif;font-weight:400;font-size:1.5rem;letter-spacing:.12em;text-transform:uppercase}
+  .branch .addr{font-family:'Cormorant Garamond',serif;font-size:1.12rem;color:rgba(244,238,226,.75)}
+  .branch .meta{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-soft)}
+  .branch .meta a{color:var(--brass-soft);text-decoration:none}
+  .branch .spacer{flex:1}
+  .btn-map{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+    font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);
+    background:var(--cream);padding:13px 22px;border-radius:999px;transition:all .3s;
+  }
+  .btn-map:hover{background:var(--brass);color:var(--cream)}
+
+  /* menu */
+  .menu-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:52px}
+  .menu-tab{
+    background:transparent;border:1px solid var(--line);border-radius:999px;cursor:pointer;
+    font-family:'Jost';font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+    padding:12px 24px;transition:all .3s;
+  }
+  .menu-tab:hover{border-color:var(--brass);color:var(--ink)}
+  .menu-tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .menu-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 64px}
+  .dish{display:flex;align-items:baseline;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .dish-name{font-family:'Cormorant Garamond',serif;font-size:1.22rem;font-weight:500;color:var(--ink)}
+  .dish-name small{display:block;font-family:'Jost';font-weight:300;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-top:2px}
+  .dish-dots{flex:1;border-bottom:1px dotted rgba(30,26,20,.35);transform:translateY(-5px)}
+  .dish-price{font-family:'Italiana',serif;font-size:1.15rem;letter-spacing:.05em;color:var(--ink);white-space:nowrap}
+  .dish-w{font-size:.7rem;letter-spacing:.1em;color:var(--ink-soft);white-space:nowrap}
+  .menu-note{margin-top:36px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);text-align:center}
+  .breakfast{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:56px}
+  .bf-card{
+    border:1px solid var(--line);border-radius:999px 999px 4px 4px;padding:44px 22px 30px;text-align:center;
+    transition:all .35s;background:rgba(255,255,255,.25);
+  }
+  .bf-card:hover{transform:translateY(-5px);border-color:var(--brass)}
+  .bf-card h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.15rem;line-height:1.35}
+  .bf-card .bf-time{margin-top:14px;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brass)}
+
+  /* visit / contacts */
+  .visit{text-align:center;max-width:640px;margin:0 auto}
+  .visit p{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ink-soft);margin:26px 0 40px}
+  .visit .hours{font-family:'Italiana',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);letter-spacing:.15em;text-transform:uppercase;color:var(--brass)}
+  .socials{display:flex;gap:14px;justify-content:center;margin-top:44px;flex-wrap:wrap}
+
+  footer{border-top:1px solid var(--line);padding:44px 0;background:var(--cream-2)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .foot .brand{font-size:1.25rem}
+  .foot-note{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  .foot-note a{color:var(--brass);text-decoration:none}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .hero-grid,.about-grid{grid-template-columns:1fr}
+    .hero-visual{order:-1;margin-top:10px}
+    .arch,.arch-outline{width:min(270px,70%)}
+    .nav-links{
+      position:fixed;inset:76px 0 auto 0;background:var(--cream);flex-direction:column;padding:30px;gap:22px;
+      border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .35s;
+    }
+    .nav-links.open{transform:none}
+    .burger{display:flex}
+    .stats{grid-template-columns:1fr 1fr}
+    .menu-cols{grid-template-columns:1fr;gap:0}
+    .breakfast{grid-template-columns:1fr 1fr;gap:14px}
+    section{padding:80px 0}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#top">mubarak<small data-i18n="brand_sub">чайхана</small></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" data-i18n="nav_about">О нас</a>
+      <a href="#menu" data-i18n="nav_menu">Меню</a>
+      <a href="#branches" data-i18n="nav_branches">Филиалы</a>
+      <a href="#visit" data-i18n="nav_visit">Контакты</a>
+      <a href="https://www.instagram.com/mubarak_chaihana/" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div class="lang">
+        <button id="btnRu" class="active" onclick="setLang('ru')">RU</button>
+        <button id="btnEn" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker" data-i18n="hero_kicker">Чайхана · Бишкек</div>
+        <h1>muba<span class="thin">rak</span></h1>
+        <p class="hero-sub" data-i18n="hero_sub">Восточная кухня, завтраки с самого утра и настоящий чай — в тёплом интерьере с арками и плетёными светильниками.</p>
+        <div class="hero-cta">
+          <a class="btn btn-dark" href="#branches" data-i18n="hero_cta1">Наши филиалы</a>
+          <a class="btn btn-ghost" href="https://2gis.kg/bishkek/search/mubarak" target="_blank" rel="noopener" data-i18n="hero_cta2">Открыть в 2GIS</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="arch-outline"></div>
+        <div class="arch"><div class="arch-floor"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track" id="marquee">
+      <span data-i18n="mq1">Арсен</span>
+      <span data-i18n="mq2">Нурислам</span>
+      <span data-i18n="mq3">Арсен</span>
+      <span data-i18n="mq4">Нурислам</span>
+      <span data-i18n="mq5">Арсен</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="about_title">Место, куда<br>возвращаются</h2>
+        <div class="sec-num">01</div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p data-i18n="about_p1">Mubarak — одна из любимых чайхан Бишкека. Просторные залы, тёплое дерево и спокойный свет создают место, где приятно завтракать, обедать и разговаривать допоздна.</p>
+          <p data-i18n="about_p2">В меню — восточная и кыргызская кухня, фирменные блюда и чайная церемония. Мы работаем почти круглосуточно: с 08:00 утра до 06:00 следующего дня.</p>
+          <div class="stats">
+            <div class="stat"><b>9</b><span data-i18n="st1">филиалов</span></div>
+            <div class="stat"><b>4.8</b><span data-i18n="st2">рейтинг гостей</span></div>
+            <div class="stat"><b>800</b><span data-i18n="st3">сом · средний чек</span></div>
+          </div>
+        </div>
+        <div class="about-visual reveal">
+          <div class="mini-arch a1"></div>
+          <div class="mini-arch a2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="menu_title">Меню</h2>
+        <div class="sec-num">02</div>
+      </div>
+      <div class="menu-tabs reveal" id="menuTabs"></div>
+      <div class="menu-cols reveal visible" id="menuList"></div>
+      <div class="menu-note reveal" data-i18n="menu_note">Цены в сомах · меню может отличаться в филиалах</div>
+
+      <div class="breakfast reveal" id="breakfast"></div>
+    </div>
+  </section>
+
+  <!-- BRANCHES -->
+  <section id="branches">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 data-i18n="branches_title">Филиалы</h2>
+        <div class="sec-num">03</div>
+      </div>
+      <div class="branch-grid">
+
+        <div class="branch reveal">
+          <h3>БЦ Гоголь</h3>
+          <div class="addr" data-i18n="b1_addr">ул. Гоголя, 28</div>
+          <div class="meta"><a href="tel:+996503820000">+996 503 82 00 00</a> · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D0%B3%D0%BE%D0%B3%D0%BE%D0%BB%D1%8F%2028" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3 data-i18n="b2_name">Центр</h3>
+          <div class="addr" data-i18n="b2_addr">пр. Чуй, 104</div>
+          <div class="meta"><a href="tel:+996503860000">+996 503 86 00 00</a> · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D1%87%D1%83%D0%B9%20104" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3 data-i18n="b3_name">Проспект</h3>
+          <div class="addr" data-i18n="b3_addr">ул. Сухэ-Батора, 5/3</div>
+          <div class="meta" data-i18n="daily">Ежедневно · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D1%81%D1%83%D1%85%D1%8D-%D0%B1%D0%B0%D1%82%D0%BE%D1%80%D0%B0%205%2F3" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3 data-i18n="b4_name">Запад</h3>
+          <div class="addr" data-i18n="b4_addr">ул. Киевская, 206</div>
+          <div class="meta" data-i18n="daily">Ежедневно · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D0%BA%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20206" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3 data-i18n="b5_name">Восток</h3>
+          <div class="addr" data-i18n="b5_addr">ул. Анкара, 300</div>
+          <div class="meta" data-i18n="daily">Ежедневно · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D0%B0%D0%BD%D0%BA%D0%B0%D1%80%D0%B0%20300" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3>Джал</h3>
+          <div class="addr" data-i18n="b6_addr">ул. Тыналиева, 3/11</div>
+          <div class="meta"><a href="tel:+996503470000">+996 503 47 00 00</a> · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D1%82%D1%8B%D0%BD%D0%B0%D0%BB%D0%B8%D0%B5%D0%B2%D0%B0%203%2F11" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3>Горького</h3>
+          <div class="addr" data-i18n="b7_addr">ул. Горького, 148 / Абая</div>
+          <div class="meta" data-i18n="daily">Ежедневно · 08:00–06:00</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/bishkek/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D0%B3%D0%BE%D1%80%D1%8C%D0%BA%D0%BE%D0%B3%D0%BE%20148" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+        <div class="branch reveal">
+          <h3 data-i18n="b8_name">И Чолпон-Ата</h3>
+          <div class="addr" data-i18n="b8_addr">Иссык-Куль, Чолпон-Ата</div>
+          <div class="meta" data-i18n="b8_meta">Летний филиал у озера</div>
+          <div class="spacer"></div>
+          <a class="btn-map" href="https://2gis.kg/search/%D0%BC%D1%83%D0%B1%D0%B0%D1%80%D0%B0%D0%BA%20%D1%87%D0%BE%D0%BB%D0%BF%D0%BE%D0%BD-%D0%B0%D1%82%D0%B0" target="_blank" rel="noopener" data-i18n="open_map">Открыть в 2GIS</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit">
+    <div class="wrap">
+      <div class="visit reveal">
+        <div class="sec-num" style="text-align:center;margin-bottom:20px">04</div>
+        <h2 data-i18n="visit_title">Ждём вас</h2>
+        <div class="hours" data-i18n="visit_hours">Ежедневно · 08:00 — 06:00</div>
+        <p data-i18n="visit_p">Завтраки с 08:00 до 12:00. Бронируйте столик по телефону ближайшего филиала или пишите нам в Instagram.</p>
+        <div class="socials">
+          <a class="btn btn-dark" href="https://www.instagram.com/mubarak_chaihana/" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn btn-ghost" href="https://2gis.kg/bishkek/search/mubarak" target="_blank" rel="noopener" data-i18n="visit_cta">Все филиалы в 2GIS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top">mubarak<small data-i18n="brand_sub">чайхана</small></a>
+    <div class="foot-note"><span data-i18n="foot">© 2026 Чайхана Mubarak · Бишкек</span> · <a href="https://www.instagram.com/mubarak_chaihana/" target="_blank" rel="noopener">@mubarak_chaihana</a></div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  ru: {
+    brand_sub:"чайхана",
+    nav_about:"О нас", nav_menu:"Меню", nav_branches:"Филиалы", nav_visit:"Контакты",
+    currency:"сом", bf_time:"Завтраки · 08:00–12:00",
+    hero_kicker:"Чайхана · Бишкек",
+    hero_sub:"Восточная кухня, завтраки с самого утра и настоящий чай — в тёплом интерьере с арками и плетёными светильниками.",
+    hero_cta1:"Наши филиалы", hero_cta2:"Открыть в 2GIS",
+    mq1:"Восточная кухня", mq2:"Завтраки 08:00–12:00", mq3:"Настоящий чай", mq4:"9 филиалов", mq5:"Ежедневно до 6 утра",
+    about_title:"Место, куда<br>возвращаются",
+    about_p1:"Mubarak — одна из любимых чайхан Бишкека. Просторные залы, тёплое дерево и спокойный свет создают место, где приятно завтракать, обедать и разговаривать допоздна.",
+    about_p2:"В меню — восточная и кыргызская кухня, фирменные блюда и чайная церемония. Мы работаем почти круглосуточно: с 08:00 утра до 06:00 следующего дня.",
+    st1:"филиалов", st2:"рейтинг гостей", st3:"сом · средний чек",
+    menu_title:"Меню",
+    menu_note:"Цены в сомах · меню может отличаться в филиалах",
+    branches_title:"Филиалы",
+    b1_addr:"ул. Гоголя, 28",
+    b2_name:"Центр", b2_addr:"пр. Чуй, 104",
+    b3_name:"Проспект", b3_addr:"ул. Сухэ-Батора, 5/3",
+    b4_name:"Запад", b4_addr:"ул. Киевская, 206",
+    b5_name:"Восток", b5_addr:"ул. Анкара, 300",
+    b6_addr:"ул. Тыналиева, 3/11",
+    b7_addr:"ул. Горького, 148 / Абая",
+    b8_name:"И Чолпон-Ата", b8_addr:"Иссык-Куль, Чолпон-Ата", b8_meta:"Летний филиал у озера",
+    daily:"Ежедневно · 08:00–06:00",
+    open_map:"Открыть в 2GIS",
+    visit_title:"Ждём вас",
+    visit_hours:"Ежедневно · 08:00 — 06:00",
+    visit_p:"Завтраки с 08:00 до 12:00. Бронируйте столик по телефону ближайшего филиала или пишите нам в Instagram.",
+    visit_cta:"Все филиалы в 2GIS",
+    foot:"© 2026 Чайхана Mubarak · Бишкек"
+  },
+  en: {
+    brand_sub:"chaihana",
+    nav_about:"About", nav_menu:"Menu", nav_branches:"Locations", nav_visit:"Contact",
+    currency:"som", bf_time:"Breakfast · 08:00–12:00",
+    hero_kicker:"Chaihana · Bishkek",
+    hero_sub:"Eastern cuisine, breakfasts from early morning and proper tea — in a warm interior of arches and woven lamps.",
+    hero_cta1:"Our locations", hero_cta2:"Open in 2GIS",
+    mq1:"Eastern cuisine", mq2:"Breakfast 08:00–12:00", mq3:"Proper tea", mq4:"9 locations", mq5:"Open daily till 6 am",
+    about_title:"A place you<br>return to",
+    about_p1:"Mubarak is one of Bishkek's favourite chaihanas. Spacious halls, warm wood and calm light make it a place for slow breakfasts, long lunches and late conversations.",
+    about_p2:"The menu features eastern and Kyrgyz cuisine, signature dishes and a tea ceremony. We work almost around the clock: from 08:00 in the morning until 06:00 the next day.",
+    st1:"locations", st2:"guest rating", st3:"som · average check",
+    menu_title:"Menu",
+    menu_note:"Prices in som · menu may vary by location",
+    branches_title:"Locations",
+    b1_addr:"28 Gogol St.",
+    b2_name:"Centre", b2_addr:"104 Chui Ave.",
+    b3_name:"Prospect", b3_addr:"5/3 Sükhbaatar St.",
+    b4_name:"West", b4_addr:"206 Kievskaya St.",
+    b5_name:"East", b5_addr:"300 Ankara St.",
+    b6_addr:"3/11 Tynalieva St.",
+    b7_addr:"148 Gorky St. / Abai",
+    b8_name:"Plus Cholpon-Ata", b8_addr:"Issyk-Kul, Cholpon-Ata", b8_meta:"Summer location by the lake",
+    daily:"Daily · 08:00–06:00",
+    open_map:"Open in 2GIS",
+    visit_title:"We are waiting",
+    visit_hours:"Daily · 08:00 — 06:00",
+    visit_p:"Breakfast from 08:00 to 12:00. Book a table by calling your nearest location or message us on Instagram.",
+    visit_cta:"All locations in 2GIS",
+    foot:"© 2026 Mubarak Chaihana · Bishkek"
+  }
+};
+
+let CURRENT_LANG = 'ru';
+function setLang(lang){
+  CURRENT_LANG = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.dataset.i18n;
+    if(I18N[lang][k] !== undefined) el.innerHTML = I18N[lang][k];
+  });
+  document.getElementById('btnRu').classList.toggle('active', lang==='ru');
+  document.getElementById('btnEn').classList.toggle('active', lang==='en');
+  if(typeof renderMenuTabs === 'function'){ renderMenuTabs(); renderMenuList(); renderBreakfast(); }
+  try{ localStorage.setItem('mubarak-lang', lang); }catch(e){}
+}
+const saved = (()=>{ try{ return localStorage.getItem('mubarak-lang'); }catch(e){ return null; } })();
+
+/* ---------- menu ---------- */
+const MENU = [
+  { id:'oriental',
+    tab:{ru:'Восточная кухня', en:'Oriental'},
+    items:[
+      {ru:'Плов Ташкентский', en:'Tashkent plov', w:'470 г', p:310},
+      {ru:'Бешбармак из конины', en:'Horse-meat beshbarmak', w:'650 г', p:350},
+      {ru:'Казан-кебаб из говядины', en:'Beef kazan kebab', w:'250 г', p:350},
+      {ru:'Куурдак', en:'Kuurdak', w:'600 г', p:440},
+      {ru:'Босо лагман', en:'Boso lagman', w:'450 г', p:300},
+      {ru:'Гюро лагман', en:'Gyro lagman', w:'550 г', p:300},
+      {ru:'Ганфан', en:'Ganfan', w:'500 г', p:280},
+      {ru:'Манты с мясом', en:'Manti with meat', w:'', p:270},
+      {ru:'Жареный джусай с мясом', en:'Fried djusai with meat', w:'300 г', p:270},
+      {ru:'Мушуру', en:'Mushuru', w:'350 г', p:310},
+    ]},
+  { id:'mains',
+    tab:{ru:'Горячие блюда', en:'Mains'},
+    items:[
+      {ru:'Мубарак', en:'Mubarak', w:'650 г', p:870, sig:true},
+      {ru:'Бон-филе на гриле', en:'Grilled bon fillet', w:'400 г', p:700},
+      {ru:'Мясное трио', en:'Meat trio', w:'580 г', p:620},
+      {ru:'Бефстроганов из бон-филе с пюре', en:'Beef stroganoff with mashed potato', w:'450 г', p:540},
+      {ru:'Кесадилья с говядиной', en:'Beef quesadilla', w:'400 г', p:370},
+      {ru:'Курица под сыром с пюре', en:'Chicken under cheese with mash', w:'550 г', p:370},
+      {ru:'Форель запечённая', en:'Baked trout', w:'350 г', p:430},
+      {ru:'Котлеты из телятины в сливочном соусе', en:'Veal cutlets in cream sauce', w:'430 г', p:400},
+    ]},
+  { id:'soups',
+    tab:{ru:'Супы', en:'Soups'},
+    items:[
+      {ru:'Шорпо', en:'Shorpo', w:'480 г', p:240},
+      {ru:'Чучвара', en:'Chuchvara', w:'400 г', p:240},
+      {ru:'Суп по-казахски', en:'Kazakh-style soup', w:'450 г', p:240},
+      {ru:'Солянка', en:'Solyanka', w:'480 г', p:240},
+      {ru:'Мампар', en:'Mampar', w:'420 г', p:240},
+      {ru:'Чечевичный крем-суп', en:'Lentil cream soup', w:'420 г', p:220},
+    ]},
+  { id:'salads',
+    tab:{ru:'Салаты', en:'Salads'},
+    items:[
+      {ru:'Салат Мубарак', en:'Mubarak salad', w:'330 г', p:330, sig:true},
+      {ru:'Цезарь с курицей', en:'Chicken Caesar', w:'320 г', p:360},
+      {ru:'Тёплый салат из баклажана', en:'Warm eggplant salad', w:'310 г', p:300},
+      {ru:'Хрустящие баклажаны в кисло-сладком соусе', en:'Crispy eggplant, sweet & sour', w:'300 г', p:320},
+      {ru:'Греческий', en:'Greek salad', w:'300 г', p:270},
+      {ru:'Шакарап', en:'Shakarap', w:'250 г', p:170},
+    ]},
+  { id:'bakery',
+    tab:{ru:'Выпечка и десерты', en:'Bakery & Desserts'},
+    items:[
+      {ru:'Самса с мясом', en:'Meat samsa', w:'120 г', p:70},
+      {ru:'Слоёная самса с курицей и сыром', en:'Puff samsa, chicken & cheese', w:'120 г', p:70},
+      {ru:'Боорсок', en:'Boorsok', w:'200 г', p:90},
+      {ru:'Лепёшка', en:'Flatbread', w:'100 г', p:40},
+      {ru:'Мубарак десерт', en:'Mubarak dessert', w:'', p:270, sig:true},
+    ]},
+];
+
+const BREAKFAST = [
+  {ru:'Сибирские сырники', en:'Siberian syrniki', d_ru:'с облепиховым кремом и вареньем из сосновых шишек', d_en:'with sea-buckthorn cream & pine-cone jam'},
+  {ru:'Скрэмбл с лососем', en:'Scrambled eggs with salmon', d_ru:'нежный, сливочный, с зеленью', d_en:'soft, creamy, with fresh herbs'},
+  {ru:'Глазунья с беконом', en:'Fried eggs with bacon', d_ru:'классика большого завтрака', d_en:'a big-breakfast classic'},
+  {ru:'Омлет с грибами', en:'Mushroom omelette', d_ru:'ароматные грибы и идеальное начало дня', d_en:'aromatic mushrooms, a perfect start'},
+];
+
+let currentCat = 'oriental';
+
+function renderMenuTabs(){
+  const tabs = document.getElementById('menuTabs');
+  tabs.innerHTML = MENU.map(c=>
+    `<button class="menu-tab ${c.id===currentCat?'active':''}" onclick="setCat('${c.id}')">${c.tab[CURRENT_LANG]}</button>`
+  ).join('');
+}
+
+function renderMenuList(){
+  const cat = MENU.find(c=>c.id===currentCat);
+  const list = document.getElementById('menuList');
+  list.innerHTML = cat.items.map(it=>`
+    <div class="dish">
+      <div class="dish-name">${it[CURRENT_LANG]}${it.sig?`<small>${CURRENT_LANG==='ru'?'фирменное':'signature'}</small>`:''}</div>
+      <div class="dish-dots"></div>
+      ${it.w?`<div class="dish-w">${it.w}</div>`:''}
+      <div class="dish-price">${it.p} ${I18N[CURRENT_LANG].currency}</div>
+    </div>`).join('');
+}
+
+function renderBreakfast(){
+  const bf = document.getElementById('breakfast');
+  bf.innerHTML = BREAKFAST.map(b=>`
+    <div class="bf-card">
+      <h4>${CURRENT_LANG==='ru'?b.ru:b.en}</h4>
+      <p style="font-family:'Cormorant Garamond';font-style:italic;color:var(--ink-soft);font-size:.95rem;margin-top:8px">${CURRENT_LANG==='ru'?b.d_ru:b.d_en}</p>
+      <div class="bf-time">${I18N[CURRENT_LANG].bf_time}</div>
+    </div>`).join('');
+}
+
+function setCat(id){ currentCat = id; renderMenuTabs(); renderMenuList(); }
+renderMenuTabs(); renderMenuList(); renderBreakfast();
+
+/* duplicate marquee for seamless loop */
+const mq = document.getElementById('marquee');
+mq.innerHTML += mq.innerHTML;
+
+/* header shadow */
+const header = document.getElementById('header');
+addEventListener('scroll', ()=> header.classList.toggle('scrolled', scrollY > 30));
+
+/* mobile menu */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+/* reveal on scroll */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+setLang(saved === 'en' ? 'en' : 'ru');
+</script>
+</body>
+</html>
